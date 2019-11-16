@@ -7,6 +7,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.lenovo.manufacture.R;
+import com.lenovo.manufacture.thl.Broadcast.MyReceiver;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -37,12 +39,28 @@ public class ThlFragment03Fragment extends Fragment implements View.OnClickListe
     Handler handler = new Handler();
     ProgressDialog progressDialog;
     private Switch switch01;
+    MyReceiver myReceiver;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.thl_fragment_03, null);
+
+        myReceiver=new MyReceiver();//初始化一个BroadcastTeceiver对象
+        IntentFilter intentFilter1=new IntentFilter();//定义一个intent过滤器
+        intentFilter1.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        getContext().registerReceiver(myReceiver,intentFilter1);//注册接收者
+
+        //向intent中添加广播意图 action相当于广播的类别名称可自己定义也可以使用系统的广播
+//        Intent intent=new Intent("staticFilter");
+//        getContext().sendBroadcast(intent);
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getContext().unregisterReceiver(myReceiver);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

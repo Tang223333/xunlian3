@@ -16,9 +16,9 @@ import okhttp3.Response;
 
 public class OkHttp {
     private static OkHttpClient okHttpClient=new OkHttpClient.Builder()
-            .connectTimeout(10, TimeUnit.SECONDS)
-            .readTimeout(10,TimeUnit.SECONDS)
-            .writeTimeout(10,TimeUnit.SECONDS)
+            .connectTimeout(3, TimeUnit.SECONDS)
+            .readTimeout(3,TimeUnit.SECONDS)
+            .writeTimeout(3,TimeUnit.SECONDS)
             .build();
 
     public JSONObject POST(Context context,String Url,String Json)throws Exception{

@@ -205,10 +205,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void initView() {
-        do {
-            //TODO 获取是否为第一次启动APP（具体操作请查看源码）
-            MainApplication.getIsOneStartApp();
-        }while (MainApplication.getIsOneStartApp());
+//        do {
+//            //TODO 获取是否为第一次启动APP（具体操作请查看源码）
+//            MainApplication.getIsOneStartApp();
+//        }while (MainApplication.getIsOneStartApp());
+//
     }
 
 }

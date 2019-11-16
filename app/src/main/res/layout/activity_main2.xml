@@ -8,6 +8,36 @@
     android:orientation="vertical"
     tools:context=".Main2Activity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/tl_head"
+        app:navigationIcon="@drawable/ic_back">
+
+        <!--Toolbar下面允许添加自定义的布局内容-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--注意TabLayout节点需要使用完整路径-->
+            <com.google.android.material.tabs.TabLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/tab_title"
+                android:layout_centerInParent="true"
+                app:tabIndicatorHeight="2dp"
+                app:tabIndicatorColor="@color/red"
+                app:tabSelectedTextColor="@color/red"
+                app:tabTextColor="@color/grey"
+                app:tabTextAppearance="@style/TabText"/>
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:id="@+id/thl2_vp"/>
+
     <TextView
         android:id="@+id/thl"
         android:text="唐海龙"

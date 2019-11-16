@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lenovo.manufacture">
+
     <!-- 用于访问网络，网络定位需要上网 -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 用于申请调用A-GPS模块 -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- 允许程序设置内置sd卡的写权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 允许程序获取网络状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 允许程序访问WiFi网络信息 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 允许程序读写手机状态和身份 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 权限 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+    <uses-permission android:name="android.intent.action.BOOT_COMPLETED" />
+    <uses-permission android:name="ANDROID.INTENT.ACTION.MEDIA_MOUNTED" />
+    <uses-permission android:name="ANDROID.INTENT.ACTION.MEDIA_UNMOUNTED" />
 
     <application
-        android:name=".hxf.Utils.MainApplication"
-        android:name=".hyx.MyApplication"
+        android:name=".thl.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,26 +24,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".hxf.MyActivity.Hxf_ViewPagerActivity"></activity>
-        <activity android:name=".hyx.activity.MediaplayActivity">
-        </activity>
-        <activity android:name=".hyx.activity.DownActivityh" />
-        <activity android:name=".hyx.activity.ViewPageActivity" />
-        <activity android:name=".cy.activity.cyActivity" />
+        <receiver
+            android:name=".thl.Broadcast.MyReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="staticFilter" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".hxf.MyActivity.Hxf_ViewPagerActivity" />
         <activity
             android:name=".dominator.MessageActivity"
             android:label="Message" />
         <activity android:name=".thl.Thl_2Activity" />
+        <activity android:name=".thl.Thl_4Activity" />
+        <activity android:name=".thl.Thl_3Activity" />
         <activity android:name=".cy.activity.cyActivity" />
-        <activity android:name=".thl.TangHaiLong_01" />
-        <activity android:name=".hxf.Hxf_DemoTestActivity" />
+        <activity android:name=".thl.TangHaiLong_01" /> <!-- <activity android:name=".hxf.Hxf_DemoTestActivity" /> -->
         <activity android:name=".Main8Activity" />
         <activity android:name=".Main7Activity" />
         <activity android:name=".Main6Activity" />
         <activity android:name=".Main5Activity" />
         <activity android:name=".Main4Activity" />
         <activity android:name=".Main3Activity" />
-        <activity android:name=".Main2Activity" />
+        <activity
+            android:name=".Main2Activity"
+            android:theme="@style/app" />
+        <activity android:name=".Main1Activity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,6 +64,22 @@
             android:name=".TestActivity"
             android:configChanges="orientation|screenSize|uiMode"
             android:theme="@style/AppTheme" />
+
+        <receiver android:name=".thl.Broadcast.BroadcastTwo">
+            <intent-filter>
+                <action android:name="android.intent.cation.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".thl.Broadcast.BroadcastOne">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="ANDROID.INTENT.ACTION.MEDIA_MOUNTED" />
+                <action android:name="ANDROID.INTENT.ACTION.MEDIA_UNMOUNTED" />
+                <data android:scheme="file" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -1,11 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">abcd</string>
-<!--    移动互联训练-->
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="phone_Info">当前设备屏幕信息如下所示：\n    像素密度：%1$s ，宽度：%2$s px，高度：%3$s px</string>
-    <string-array name="thl_spinner">
+    <string-array name="thl3_spinner">
         <item>不显示分隔线(分隔线高度为0)</item>
         <item>不显示分隔线(分隔线为null)</item>
         <item>只显示内部分隔线(先设置分隔线高度)</item>

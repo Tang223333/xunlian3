@@ -9,6 +9,7 @@ import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Handler;
 import android.text.Editable;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.lenovo.manufacture.R;
+import com.lenovo.manufacture.thl.Broadcast.MyReceiver;
 import com.lenovo.manufacture.thl.MainApplication;
 import com.lenovo.manufacture.thl.OkHttp.OkHttp;
 import com.lenovo.manufacture.thl.Thl_2Activity;
@@ -58,6 +60,7 @@ public class ThlFragment01Fragment extends Fragment implements View.OnClickListe
     OkHttp okHttp;
     MainApplication application;
     ProgressDialog progressDialog;
+    MyReceiver myReceiver;
 
     Handler handler=new Handler();
 
@@ -66,7 +69,22 @@ public class ThlFragment01Fragment extends Fragment implements View.OnClickListe
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.thl_fragment_01, null);
         Log.d("ThlFragment01Fragment", "1");
+
+        myReceiver=new MyReceiver();//初始化一个BroadcastTeceiver对象
+        IntentFilter intentFilter1=new IntentFilter();//定义一个intent过滤器
+        intentFilter1.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        getContext().registerReceiver(myReceiver,intentFilter1);//注册接收者
+
+        //向intent中添加广播意图 action相当于广播的类别名称可自己定义也可以使用系统的广播
+//        Intent intent=new Intent("android.net.conn.CONNECTIVITY_CHANGE");
+//        getContext().sendBroadcast(intent);
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getContext().unregisterReceiver(myReceiver);
     }
 
     @Override

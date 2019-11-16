@@ -1,5 +1,7 @@
 package com.lenovo.manufacture.thl;
 
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -11,6 +13,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.lenovo.manufacture.R;
+import com.lenovo.manufacture.thl.Broadcast.MyReceiver;
 import com.lenovo.manufacture.thl.frament.ThlFragment01Fragment;
 import com.lenovo.manufacture.thl.frament.ThlFragment02Fragment;
 import com.lenovo.manufacture.thl.frament.ThlFragment03Fragment;
@@ -25,12 +28,19 @@ public class TangHaiLong_01 extends AppCompatActivity implements View.OnClickLis
     private TextView One;
     private TextView Two;
     private TextView Three;
+    MyReceiver myReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tang_hai_long_01);
         initView();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(myReceiver);
     }
 
     private void initView() {
@@ -92,6 +102,15 @@ public class TangHaiLong_01 extends AppCompatActivity implements View.OnClickLis
         });
         csh();
         One.setSelected(true);
+
+        myReceiver=new MyReceiver();//初始化一个BroadcastTeceiver对象
+        IntentFilter intentFilter1=new IntentFilter();//定义一个intent过滤器
+        intentFilter1.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        registerReceiver(myReceiver,intentFilter1);//注册接收者
+
+        //向intent中添加广播意图 action相当于广播的类别名称可自己定义也可以使用系统的广播
+//        Intent intent=new Intent("android.net.conn.CONNECTIVITY_CHANGE");
+//        sendBroadcast(intent);
     }
 
     private void csh(){

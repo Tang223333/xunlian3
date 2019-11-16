@@ -1,5 +1,7 @@
 package com.lenovo.manufacture.thl.frament;
 
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.LayoutInflater;
@@ -11,12 +13,14 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.lenovo.manufacture.R;
+import com.lenovo.manufacture.thl.Broadcast.MyReceiver;
 
 
 public class ThlFragment02Fragment extends Fragment implements View.OnClickListener {
 
     Drawable drawable;//声明一个图形对象
     TextView textView;
+    MyReceiver myReceiver;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,7 +38,22 @@ public class ThlFragment02Fragment extends Fragment implements View.OnClickListe
         button2.setOnClickListener(this);
         button3.setOnClickListener(this);
         button4.setOnClickListener(this);
+
+        myReceiver=new MyReceiver();//初始化一个BroadcastTeceiver对象
+        IntentFilter intentFilter1=new IntentFilter();//定义一个intent过滤器
+        intentFilter1.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        getContext().registerReceiver(myReceiver,intentFilter1);//注册接收者
+
+        //向intent中添加广播意图 action相当于广播的类别名称可自己定义也可以使用系统的广播
+//        Intent intent=new Intent("staticFilter");
+//        getContext().sendBroadcast(intent);
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getContext().unregisterReceiver(myReceiver);
     }
 
     @Override

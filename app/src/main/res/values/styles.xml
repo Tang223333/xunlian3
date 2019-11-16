@@ -10,6 +10,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="app" parent="Theme.AppCompat.Light.NoActionBar">
+    </style>
+
+    <style name="TabText">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@drawable/toolbar_text_selector</item>
+    </style>
+
     <style name="WebViewProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
         <item name="android:indeterminateOnly">false</item>
         <item name="android:progressDrawable">@drawable/progress_horizontal</item>
