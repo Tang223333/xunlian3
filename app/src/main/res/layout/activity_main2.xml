@@ -38,6 +38,36 @@
         android:layout_height="400dp"
         android:id="@+id/thl2_vp"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/main2_btn_1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="你这是什么意思？"/>
+        <Button
+            android:id="@+id/main2_btn_2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="你这就不够意思了。"/>
+        <Button
+            android:id="@+id/main2_btn_3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="你这人真有意思。"/>
+        <Button
+            android:id="@+id/main2_btn_4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="那我就不好意思了。"/>
+    </LinearLayout>
+
     <TextView
         android:id="@+id/thl"
         android:text="唐海龙"

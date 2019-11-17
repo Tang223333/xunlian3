@@ -24,12 +24,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name=".thl.service.MyService"
+            android:enabled="true"
+            android:exported="true"></service>
+
         <receiver
             android:name=".thl.Broadcast.MyReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="staticFilter" />
+                <action android:name="start" />
             </intent-filter>
         </receiver>
 
@@ -72,12 +77,7 @@
         </receiver>
         <receiver android:name=".thl.Broadcast.BroadcastOne">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="ANDROID.INTENT.ACTION.MEDIA_MOUNTED" />
-                <action android:name="ANDROID.INTENT.ACTION.MEDIA_UNMOUNTED" />
-                <data android:scheme="file" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
     </application>

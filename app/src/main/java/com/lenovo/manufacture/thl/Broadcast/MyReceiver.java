@@ -8,6 +8,7 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.view.View;
 import android.widget.Button;
@@ -17,8 +18,11 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 
 import com.lenovo.manufacture.R;
+import com.lenovo.manufacture.thl.service.MyService;
 
 public class MyReceiver extends BroadcastReceiver {
+
+    Intent intent1;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -36,26 +40,15 @@ public class MyReceiver extends BroadcastReceiver {
                 .build();
         notificationManager.notify(1,notification);
 
-        Dialog dialog=new Dialog(context);
-        dialog.show();
-        dialog.setContentView(R.layout.dialog_item);
-        TextView textView=dialog.getWindow().findViewById(R.id.text_title);
-        TextView textView1=dialog.getWindow().findViewById(R.id.text_car_id);
-        Button button=dialog.getWindow().findViewById(R.id.btn_qx);
-        Button button1=dialog.getWindow().findViewById(R.id.btn_qr);
-        textView.setText("123654789");
-        textView1.setText("987654321");
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+        int a=intent.getIntExtra("bf",0);
+        Toast.makeText(context, "a"+a, Toast.LENGTH_SHORT).show();
+        intent1=new Intent(context, MyService.class);
+        if (a==1){
+            context.startService(intent1);
+        }
+        if (a==2){
+            context.stopService(intent1);
+        }
+
     }
 }

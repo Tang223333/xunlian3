@@ -41,12 +41,9 @@ public class Thl_2Activity extends AppCompatActivity implements View.OnClickList
 
         myReceiver=new MyReceiver();//初始化一个BroadcastTeceiver对象
         IntentFilter intentFilter1=new IntentFilter();//定义一个intent过滤器
-        intentFilter1.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        intentFilter1.addAction("start");
         registerReceiver(myReceiver,intentFilter1);//注册接收者
 
-        //向intent中添加广播意图 action相当于广播的类别名称可自己定义也可以使用系统的广播
-//        Intent intent=new Intent("android.net.conn.CONNECTIVITY_CHANGE");
-//        sendBroadcast(intent);
         edit_6 = findViewById(R.id.edit_6);
         edit_11 = findViewById(R.id.edit_11);//找到这两个输入框
         max_6 = ViewUtil.getMaxLength(edit_6);//edit_6的最大长度

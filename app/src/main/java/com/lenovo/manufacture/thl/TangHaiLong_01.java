@@ -37,12 +37,6 @@ public class TangHaiLong_01 extends AppCompatActivity implements View.OnClickLis
         initView();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(myReceiver);
-    }
-
     private void initView() {
         thlViewpager = (ViewPager) findViewById(R.id.thl_viewpager);
         list = new ArrayList<>();
@@ -105,12 +99,15 @@ public class TangHaiLong_01 extends AppCompatActivity implements View.OnClickLis
 
         myReceiver=new MyReceiver();//初始化一个BroadcastTeceiver对象
         IntentFilter intentFilter1=new IntentFilter();//定义一个intent过滤器
-        intentFilter1.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        intentFilter1.addAction("start");
         registerReceiver(myReceiver,intentFilter1);//注册接收者
 
-        //向intent中添加广播意图 action相当于广播的类别名称可自己定义也可以使用系统的广播
-//        Intent intent=new Intent("android.net.conn.CONNECTIVITY_CHANGE");
-//        sendBroadcast(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        unregisterReceiver(myReceiver);
     }
 
     private void csh(){

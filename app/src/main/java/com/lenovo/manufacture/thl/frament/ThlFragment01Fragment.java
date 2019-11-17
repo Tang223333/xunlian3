@@ -70,21 +70,7 @@ public class ThlFragment01Fragment extends Fragment implements View.OnClickListe
         View view=inflater.inflate(R.layout.thl_fragment_01, null);
         Log.d("ThlFragment01Fragment", "1");
 
-        myReceiver=new MyReceiver();//初始化一个BroadcastTeceiver对象
-        IntentFilter intentFilter1=new IntentFilter();//定义一个intent过滤器
-        intentFilter1.addAction("android.net.conn.CONNECTIVITY_CHANGE");
-        getContext().registerReceiver(myReceiver,intentFilter1);//注册接收者
-
-        //向intent中添加广播意图 action相当于广播的类别名称可自己定义也可以使用系统的广播
-//        Intent intent=new Intent("android.net.conn.CONNECTIVITY_CHANGE");
-//        getContext().sendBroadcast(intent);
         return view;
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        getContext().unregisterReceiver(myReceiver);
     }
 
     @Override

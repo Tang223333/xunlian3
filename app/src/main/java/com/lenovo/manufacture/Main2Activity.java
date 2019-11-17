@@ -1,27 +1,24 @@
 package com.lenovo.manufacture;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.lenovo.manufacture.cy.fragment.CyFragment1Fragment;
 import com.lenovo.manufacture.cy.fragment.CyFragment2Fragment;
@@ -32,7 +29,6 @@ import com.lenovo.manufacture.thl.TangHaiLong_01;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Main2Activity extends AppCompatActivity implements View.OnClickListener {
     Toolbar toolbar;
@@ -41,20 +37,28 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     private TextView tvDay2;
     private TabLayout tabTitle;
     private ViewPager thl2Vp;
-    List<Fragment> list=new ArrayList<>();
+    List<Fragment> list = new ArrayList<>();
     BroadcastOne broadcastOne;
     MyReceiver myReceiver;
+    private Toolbar tlHead;
+    private Button main2Btn1;
+    private Button main2Btn2;
+    private Button main2Btn3;
+    private Button main2Btn4;
+    private TextView thl;
+    Handler handler=new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         TextView thl = findViewById(R.id.thl);
+
         thl.setOnClickListener(this);
 
         //找到toolbar工具栏
         toolbar = findViewById(R.id.tl_head);
-        //设置工具栏左边的导航图标
+        //设置工具栏左边的导航图标30
         toolbar.setNavigationIcon(R.drawable.ic_back);
         toolbar.setCollapseIcon(R.mipmap.ic_launcher);
         //设置工具栏的背景
@@ -74,8 +78,31 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(Main2Activity.this, TangHaiLong_01.class);
-        startActivity(intent);
+        switch (v.getId()){
+            case R.id.thl:
+                Intent intent = new Intent(Main2Activity.this, TangHaiLong_01.class);
+                startActivity(intent);
+                break;
+            case R.id.main2_btn_1:
+                Snackbar snackbar=Snackbar.make(v,"没什么意思，意思意思。",Snackbar.LENGTH_LONG);
+                snackbar.show();
+                break;
+            case R.id.main2_btn_2:
+                Snackbar snackbar2=Snackbar.make(v,"小意思，小意思",Snackbar.LENGTH_INDEFINITE);
+                //LENGTH_LONG表示比较长的时间之后才关闭提示
+                //LENGTH_SHORT表示短时间就关闭提示
+                //LRNGTH_INDEFINITE表示不自动关闭提示
+                snackbar2.show();
+                break;
+            case R.id.main2_btn_3:
+                Snackbar snackbar3=Snackbar.make(v,"其实也没别的意思。",Snackbar.LENGTH_LONG);
+                snackbar3.show();
+                break;
+            case R.id.main2_btn_4:
+                Snackbar snackbar4=Snackbar.make(v,"是我不好意思。",Snackbar.LENGTH_SHORT);
+                snackbar4.show();
+                break;
+        }
     }
 
     private void initView() {
@@ -86,7 +113,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         list.add(new CyFragment2Fragment());
         list.add(new CyFragment3Fragment());
 
-        FragmentPagerAdapter adapter=new FragmentPagerAdapter(getSupportFragmentManager()) {
+        FragmentPagerAdapter adapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @NonNull
             @Override
             public Fragment getItem(int position) {
@@ -128,14 +155,16 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             //选中时触发
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Toast.makeText(Main2Activity.this, ""+tab.getPosition(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Main2Activity.this, "" + tab.getPosition(), Toast.LENGTH_SHORT).show();
                 thl2Vp.setCurrentItem(tab.getPosition());
             }
+
             //取消选中时触发
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
 
             }
+
             //复选时触发
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
@@ -143,40 +172,47 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             }
         });
 
-        broadcastOne=new BroadcastOne();
-        IntentFilter intentFilter=new IntentFilter();//定义一个intent过滤器
+        broadcastOne = new BroadcastOne();
+        IntentFilter intentFilter = new IntentFilter();//定义一个intent过滤器
         intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
-        registerReceiver(broadcastOne,intentFilter);
+        registerReceiver(broadcastOne, intentFilter);
 
-        myReceiver=new MyReceiver();//初始化一个BroadcastTeceiver对象
-        IntentFilter intentFilter1=new IntentFilter();//定义一个intent过滤器
-        intentFilter1.addAction("staticFilter");//只保留Action是staticFilterintent
-        registerReceiver(myReceiver,intentFilter1);//注册接收者
+        myReceiver = new MyReceiver();//初始化一个BroadcastTeceiver对象
+        IntentFilter intentFilter1 = new IntentFilter();//定义一个intent过滤器
+        intentFilter1.addAction("start");//只保留Action是staticFilterintent
+        registerReceiver(myReceiver, intentFilter1);//注册接收者
 
-        //向intent中添加广播意图 action相当于广播的类别名称可自己定义也可以使用系统的广播
-        Intent intent=new Intent("staticFilter");
+        Intent intent=new Intent("start");
+        intent.putExtra("bf",1);
         sendBroadcast(intent);
+
+        tlHead = (Toolbar) findViewById(R.id.tl_head);
+        main2Btn1 = (Button) findViewById(R.id.main2_btn_1);
+        main2Btn2 = (Button) findViewById(R.id.main2_btn_2);
+        main2Btn3 = (Button) findViewById(R.id.main2_btn_3);
+        main2Btn4 = (Button) findViewById(R.id.main2_btn_4);
+        main2Btn1.setOnClickListener(this);
+        main2Btn2.setOnClickListener(this);
+        main2Btn3.setOnClickListener(this);
+        main2Btn4.setOnClickListener(this);
+        thl = (TextView) findViewById(R.id.thl);
+        thl.setOnClickListener(this);
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        broadcastOne=new BroadcastOne();
-        IntentFilter intentFilter=new IntentFilter();//定义一个intent过滤器
-        intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
-        registerReceiver(broadcastOne,intentFilter);
-
-        myReceiver=new MyReceiver();//初始化一个BroadcastTeceiver对象
-        IntentFilter intentFilter1=new IntentFilter();//定义一个intent过滤器
-        intentFilter1.addAction("staticFilter");
-        registerReceiver(myReceiver,intentFilter1);//注册接收者
+        Intent intent=new Intent("start");
+        intent.putExtra("bf",1);
+        sendBroadcast(intent);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-//        unregisterReceiver(broadcastOne);
-//        unregisterReceiver(myReceiver);
+        Intent intent1=new Intent("start");
+        intent1.putExtra("bf",2);
+        sendBroadcast(intent1);
     }
 
     @Override
@@ -188,13 +224,13 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_item,menu);
+        getMenuInflater().inflate(R.menu.menu_item, menu);
         return true;
     }
 
-        @Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.menu_change_time:
                 Toast.makeText(this, "改变时间", Toast.LENGTH_SHORT).show();
                 break;
